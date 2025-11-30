@@ -1,16 +1,24 @@
-import contact_img from "../assets/contact-img.jpg"
-
-export default function Contact(){
+export default function Contact({contactId,contactName, contactNumber,onStartDeletion}){
     return <div className="contact">
-        <img src={contact_img} alt="Contact image" className="contact-img" />
+        <div className="contact-cover">{contactName[0]}</div>
         <div className="contact-info">
-            <span className="contact-name">Andrea</span>
-            <span className="contact-number">934-234-124</span>
+            <div className="contact-header">
+                <div>
+                    <span className="contact-name">{contactName}</span>
+                    <span className="contact-number">{contactNumber}</span>
+                </div>
+                <button onClick={() => onStartDeletion(contactId)}>
+                    <ion-icon name="trash" className = "icon"></ion-icon>
+                </button>
+            </div>
             <div className="contact-btns">
                 <button className="btn--primary">Edit</button>
                 <button className="btn">
                     <ion-icon name="copy-outline" className = "icon"></ion-icon>
                     {/* <ion-icon name="checkmark-outline" className = "icon"></ion-icon> */}
+                </button>
+                <button className="btn">
+                    <ion-icon name="star-outline" className = "icon"></ion-icon>
                 </button>
             </div>
         </div>

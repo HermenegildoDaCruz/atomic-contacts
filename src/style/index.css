@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap');
+
 html{
     font-size: 62.5%;
 }
@@ -11,7 +13,9 @@ body{
     max-width: 100rem;
     margin: 2.4rem auto;
 }
-
+h2{
+    font-size: 1.8rem;
+}
 button{
     font-family: inherit;
     background-color: transparent;
@@ -36,7 +40,7 @@ option{
     flex-direction: column;
     align-items: start;
     gap: 1.2rem;
-    margin: 4.4rem 0;
+    margin: 4.4rem 2rem;
 }
 .header-search-box{
     display: flex;
@@ -63,6 +67,7 @@ option{
     justify-items: center;
     row-gap: 1.4rem;
     column-gap: 2.4rem;
+    margin: 0 2rem;
 }
 .contact {
     display: flex;
@@ -73,10 +78,22 @@ option{
     width: 100%;
 }
 
-.contact-img{
+/* .contact-img{
     height: 3.4rem;
     width: 3.4rem;
     border-radius: 50%;
+} */
+
+.contact-cover{
+    font-family: "Leckerli One", cursive;
+    color: #000;
+    background-color: #e6e6e6d5;
+    height: 3.4rem;
+    width: 3.4rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .contact-name{
     font-weight: 700;
@@ -90,18 +107,43 @@ option{
     flex-direction: column;
     gap: .2rem;
 }
-
+.contact-header{
+    display: flex;
+    justify-content: space-between;
+}
+.contact-header span{
+    display: block;
+}
+.contact-header .icon{
+    margin-top: .4rem;
+}
 .contact-btns{
     margin-top: 1.4rem;
     gap: .6rem;
     display: flex;
     align-items: center;
 }
+.contact-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    margin-bottom: 2.4rem;
+}
+.modal{
+    top: 50%;
+    transform: translateY(-80%);
+    background-color: #00000018;
+    backdrop-filter: blur(10px);
+    color: #f1f3f5;
+    border: .2px solid #b3b3b32d;
+    border-radius: 12px;
+    z-index: 2;
+}
 .btn--primary{
     background-color: #f1f3f5;
     color: #000;
     border-radius: 8px;
-    padding: .4rem 3.2rem;
+    padding: .4rem 2.2rem;
     transition: all 300ms ease-in;
     border: .4px solid #f1f3f5;
 }
@@ -115,4 +157,5 @@ option{
 .icon{
     height: 1.9rem;
     width: 1.9rem;
+    cursor: pointer;
 }
