@@ -15,12 +15,17 @@ const DEFAULT_CONTACT_STATE = {
   contacts: [],
   favorites: [],
   filter: "a-z",
+  searchedContacts: [],
+  hasResult: true
 };
 
 function App() {
   const {
     contactState,
     selectedContact,
+    sortedContacts,
+    searchByName,
+    handleSetFilter,
     handleAddContact,
     handleStartCreating,
     handleStopCreating,
@@ -31,6 +36,7 @@ function App() {
     handleStartEditing,
     handleStopEditing,
   } = useContactHook(DEFAULT_CONTACT_STATE);
+
 
   return (
     <>
@@ -58,21 +64,32 @@ function App() {
         onDelete={handleDeleteContact}
         onStopDeleting={handleStopDeleting}
       />
-      <Header onStartCreating={handleStartCreating}/>
-      {contactState.contacts && (
+      <Header 
+      onStartCreating={handleStartCreating}
+      onSetFilter={handleSetFilter}
+      onSearch = {searchByName}
+      />
+      
+      {contactState.searchedContacts.length === 0 && (contactState.hasResult ? sortedContacts && (
         <Contacts
-          contacts={contactState.contacts}
+          contacts={sortedContacts}
           onStartDeletion={handleStartDeleting}
           onStartEditing={handleStartEditing}
+          onStartCreating={handleStartCreating}
         />
-      )}
-      {contactState.contacts.length === 0 && (
-        <div>
-          <h2>No contacts.. </h2>
-          <button className="btn--primary" onClick={handleStartCreating}>
-            create
-          </button>
-        </div>
+      ):<div className="container">
+            <h2>No contact founded. </h2>
+            <button className="btn--primary" onClick={handleStartCreating}>
+              create
+            </button>
+          </div>)}
+      {contactState.searchedContacts.length > 0 && (
+        <Contacts
+          contacts={contactState.searchedContacts}
+          onStartDeletion={handleStartDeleting}
+          onStartEditing={handleStartEditing}
+          onStartCreating={handleStartCreating}
+        />
       )}
     </>
   );

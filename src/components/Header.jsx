@@ -1,4 +1,4 @@
-export default function Header({ onStartCreating }) {
+export default function Header({ onStartCreating, onSetFilter,onSearch }) {
   return (
     <header className="header">
       <div className="header-search-box">
@@ -7,6 +7,7 @@ export default function Header({ onStartCreating }) {
           name="search"
           className="search-input"
           placeholder="Search contacts by name"
+          onChange={(e) => onSearch(e.target.value)}
         />
         <button className="btn--primary" onClick={onStartCreating}>
           <ion-icon name="add-outline" className="icon"></ion-icon>
@@ -14,10 +15,9 @@ export default function Header({ onStartCreating }) {
         </button>
       </div>
       <div className="header-filters-box">
-        <select name="filter" className="filter-contacts">
+        <select name="filter" className="filter-contacts" onClick={(e) => onSetFilter(e.target.value)}>
           <option value="a-z">Orber by name A-Z</option>
           <option value="z-a">Orber by name Z-A</option>
-          <option value="">Order by creation date</option>
         </select>
         <button className="btn">
           <ion-icon name="star-outline" className="icon"></ion-icon>

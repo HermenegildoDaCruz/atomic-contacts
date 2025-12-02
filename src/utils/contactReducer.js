@@ -55,9 +55,12 @@ export function contactReducer(contactState,action){
 
     if (action.type === "DELETE_CONTACT"){
         if (contactState.selectedContactId !== null){
+            const filteredContacts = contactState.contacts.filter(contact => contact.id !== contactState.selectedContactId)
+            const filteredSearchedContacts = contactState.searchedContacts.filter(contact => contact.id !== contactState.selectedContactId)
         return {
             ...contactState,
-            contacts: contactState.contacts.filter(contact => contact.id !== contactState.selectedContactId),
+            contacts: filteredContacts,
+            searchedContacts: filteredSearchedContacts,
             isDeleting: false
             }
         }
@@ -77,6 +80,36 @@ export function contactReducer(contactState,action){
         isDeleting: false,
         selectedContactId:null
       }
+    }
+    if (action.type === "SEARCH_CONTACT"){
+        if (action.searchValue.length > 0){
+            const searchResults = contactState.contacts.filter((contact) => contact.name.includes(action.searchValue))
+            
+            if (searchResults.length === 0){
+                return {
+                    ...contactState,
+                    searchedContacts: [],
+                    hasResult: false
+                }
+            }
+            return {
+                ...contactState,
+                searchedContacts: [...searchResults]
+            }
+        }
+        if (action.searchValue.length === 0){
+            return {
+                ...contactState,
+                searchedContacts: [],
+                hasResult: true,
+            }
+        }  
+    }
+    if (action.type === "FILTER_CONTACT"){
+        return {
+            ...contactState,
+            filter: action.filter
+        }
     }
     return contactState
 }

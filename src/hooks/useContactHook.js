@@ -6,7 +6,16 @@ export default function useContactHook(initialState) {
 
     const selectedContact = contactState.selectedContactId !== null
         ? contactState.contacts.filter((contact) => contact.id === contactState.selectedContactId)[0]:null;
-        
+    
+    let sortedContacts 
+    if (contactState.filter === "a-z"){
+        sortedContacts = contactState.contacts ? contactState.contacts.sort((a,b) => a.name.localeCompare(b.name)):null
+    }
+    if (contactState.filter === "z-a"){
+        sortedContacts = contactState.contacts ? contactState.contacts.sort((a,b) => b.name.localeCompare(a.name)):null
+    }
+      
+    console.log(contactState.searchedContacts)
 
     function handleAddContact(name, number) {
         dispatch({
@@ -61,10 +70,25 @@ export default function useContactHook(initialState) {
         type: "STOP_UPDATING",
         });
     }
+    function handleSetFilter(filter) {
+        dispatch({
+        type: "FILTER_CONTACT",
+        filter: filter
+        });
+    }
+    function searchByName(searchValue) {
+        dispatch({
+        type: "SEARCH_CONTACT",
+        searchValue: searchValue
+        });
+    }
 
     return {
         contactState,
+        sortedContacts,
         selectedContact,
+        searchByName,
+        handleSetFilter,
         handleAddContact,
         handleStartCreating,
         handleStopCreating,
