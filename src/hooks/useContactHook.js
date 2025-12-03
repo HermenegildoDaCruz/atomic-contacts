@@ -7,13 +7,20 @@ export default function useContactHook(initialState) {
     const selectedContact = contactState.selectedContactId !== null
         ? contactState.contacts.filter((contact) => contact.id === contactState.selectedContactId)[0]:null;
     
-    let sortedContacts 
+    let sortedContacts
     if (contactState.filter === "a-z"){
         sortedContacts = contactState.contacts ? contactState.contacts.sort((a,b) => a.name.localeCompare(b.name)):null
     }
     if (contactState.filter === "z-a"){
         sortedContacts = contactState.contacts ? contactState.contacts.sort((a,b) => b.name.localeCompare(a.name)):null
     }
+    // //SHOW FAVORITES CONTACTS
+    // if (contactState.filter === "fav"){
+    //     const favorites = contactState.contacts ? contactState.contacts.filter((contact) => contact.isFavorite):null;
+    //     if (favorites !== null){
+    //         sortedContacts = contactState.contacts ? favorites.sort((a,b) => a.name.localeCompare(b.name)):null
+    //     }
+    // }
       
     function handleAddContact(name, number) {
         dispatch({

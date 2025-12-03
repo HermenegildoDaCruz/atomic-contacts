@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function useIsActive(initialValue){
+export default function useIsActive(initialValue, reset){
     const [active, setActive] = useState(initialValue)
 
     function handleToggleIsActive(){
@@ -8,15 +8,17 @@ export default function useIsActive(initialValue){
     }
 
     useEffect(() => {
-        let timer
-        if (active){
-            timer = setTimeout(() => {
-                handleToggleIsActive()
-            }, 1000);
-        }
+        if (reset){
+            let timer
+            if (active){
+                timer = setTimeout(() => {
+                    handleToggleIsActive()
+                }, 1000);
+            }
 
-        return () => {
-            clearTimeout(timer)
+            return () => {
+                clearTimeout(timer)
+            }
         }
     },[active])
     

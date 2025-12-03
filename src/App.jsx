@@ -15,7 +15,11 @@ const DEFAULT_CONTACT_STATE = {
   contacts: [],
   filter: "a-z",
   searchedContacts: [],
-  hasResult: true
+  hasResult: true,
+  messages: {
+    show: false,
+    sucess: false,
+  }
 };
 
 function App() {

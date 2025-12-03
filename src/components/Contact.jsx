@@ -10,7 +10,7 @@ export default function Contact({
   onSetFavorite
 }) {
 
-  const {active,handleToggleIsActive} = useIsActive(false)
+  const {active,handleToggleIsActive} = useIsActive(false,true)
 
   return (
     <div className="contact">
