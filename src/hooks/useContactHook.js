@@ -14,13 +14,15 @@ export default function useContactHook(initialState) {
     if (contactState.filter === "z-a"){
         sortedContacts = contactState.contacts ? contactState.contacts.sort((a,b) => b.name.localeCompare(a.name)):null
     }
-    // //SHOW FAVORITES CONTACTS
-    // if (contactState.filter === "fav"){
-    //     const favorites = contactState.contacts ? contactState.contacts.filter((contact) => contact.isFavorite):null;
-    //     if (favorites !== null){
-    //         sortedContacts = contactState.contacts ? favorites.sort((a,b) => a.name.localeCompare(b.name)):null
-    //     }
-    // }
+    //SHOW FAVORITES CONTACTS
+    if (contactState.filter === "fav"){
+        const favorites = contactState.contacts ? contactState.contacts.filter((contact) => contact.isFavorite):null;
+        if (favorites !== null){
+            sortedContacts = favorites.sort((a,b) => a.name.localeCompare(b.name))
+        }else{
+            sortedContacts = []
+        }
+    }
       
     function handleAddContact(name, number) {
         dispatch({
@@ -93,7 +95,12 @@ export default function useContactHook(initialState) {
             type: "TOGGLE_ISFAVORITE",
             id: id
         });
-        }
+    }
+    function handleShowFavorites(){
+        dispatch({
+            type: "SHOW_AND_HIDE_FAVORITES"
+        })
+    }
 
     return {
         contactState,
@@ -101,6 +108,7 @@ export default function useContactHook(initialState) {
         selectedContact,
         searchByName,
         handleSetFilter,
+        handleShowFavorites,
         handleAddContact,
         handleStartCreating,
         handleStopCreating,

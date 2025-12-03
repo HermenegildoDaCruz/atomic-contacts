@@ -119,5 +119,19 @@ export function contactReducer(contactState,action){
             contacts: [...contactState.contacts.map(contact => contact.id === action.id ? {...contact, isFavorite: !contact.isFavorite}:contact) ],
         }
     }
+
+    if (action.type === "SHOW_AND_HIDE_FAVORITES"){
+        if (contactState.filter === "fav"){
+            return {
+                ...contactState,
+                filter: "a-z"
+            }
+        }else{
+            return {
+                ...contactState,
+                filter: "fav"
+            }
+        }
+    }
     return contactState
 }

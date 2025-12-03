@@ -16,6 +16,7 @@ const DEFAULT_CONTACT_STATE = {
   filter: "a-z",
   searchedContacts: [],
   hasResult: true,
+  showFavorites:false,
   messages: {
     show: false,
     sucess: false,
@@ -29,6 +30,7 @@ function App() {
     sortedContacts,
     searchByName,
     handleSetFilter,
+    handleShowFavorites,
     handleAddContact,
     handleStartCreating,
     handleStopCreating,
@@ -40,8 +42,7 @@ function App() {
     handleStopEditing,
     handleSetFavorite
   } = useContactHook(DEFAULT_CONTACT_STATE);
-
-
+  
   return (
     <>
       <Backdrop
@@ -54,6 +55,7 @@ function App() {
         onAddContact={handleAddContact}
         onStopCreating={handleStopCreating}
       />
+      
       {selectedContact && (
         <EditContact
           open={contactState.isEditing}
@@ -69,12 +71,14 @@ function App() {
         onStopDeleting={handleStopDeleting}
       />
       <Header 
+      filter={contactState.filter}
       onStartCreating={handleStartCreating}
       onSetFilter={handleSetFilter}
+      onShowFavorites = {handleShowFavorites}
       onSearch = {searchByName}
       />
       
-      {contactState.searchedContacts.length === 0 && (contactState.hasResult ? sortedContacts && (
+      {contactState.searchedContacts.length === 0 && (contactState.hasResult ? (sortedContacts &&
         <Contacts
           contacts={sortedContacts}
           onStartDeletion={handleStartDeleting}

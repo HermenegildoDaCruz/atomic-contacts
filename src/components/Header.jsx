@@ -1,12 +1,4 @@
-import useIsActive from "../hooks/useIsActive";
-
-export default function Header({ onStartCreating, onSetFilter,onSearch }) {
-  const {active,handleToggleIsActive} = useIsActive(false, false)
-
-  // function handleSetActive(){
-  //   handleToggleIsActive()
-  //   onSetFilter("fav")
-  // }
+export default function Header({filter, onStartCreating, onSetFilter,onSearch, onShowFavorites }) {
   return (
     <header className="header">
       <div className="header-search-box">
@@ -27,8 +19,8 @@ export default function Header({ onStartCreating, onSetFilter,onSearch }) {
           <option value="a-z">Orber by name A-Z</option>
           <option value="z-a">Orber by name Z-A</option>
         </select>
-        <button className="btn">
-          {active ? <ion-icon name="star" className = "icon"></ion-icon>:<ion-icon name="star-outline" className="icon"></ion-icon>}
+        <button className="btn" onClick={onShowFavorites}>
+          {filter === "fav" ? <ion-icon name="star" className = "icon"></ion-icon>:<ion-icon name="star-outline" className="icon"></ion-icon>}
         </button>
       </div>
     </header>
