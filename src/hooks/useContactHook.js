@@ -15,8 +15,6 @@ export default function useContactHook(initialState) {
         sortedContacts = contactState.contacts ? contactState.contacts.sort((a,b) => b.name.localeCompare(a.name)):null
     }
       
-    console.log(contactState.searchedContacts)
-
     function handleAddContact(name, number) {
         dispatch({
         type: "ADD_CONTACT",
@@ -80,8 +78,15 @@ export default function useContactHook(initialState) {
         dispatch({
         type: "SEARCH_CONTACT",
         searchValue: searchValue
+    });
+}
+
+    function handleSetFavorite(id){
+        dispatch({
+            type: "TOGGLE_ISFAVORITE",
+            id: id
         });
-    }
+        }
 
     return {
         contactState,
@@ -97,6 +102,7 @@ export default function useContactHook(initialState) {
         handleStopDeleting,
         handleEditContact,
         handleStartEditing,
-        handleStopEditing
+        handleStopEditing,
+        handleSetFavorite
     };
 }

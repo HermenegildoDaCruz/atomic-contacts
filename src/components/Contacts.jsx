@@ -4,7 +4,8 @@ export default function Contacts({
   contacts,
   onStartDeletion,
   onStartEditing,
-  onStartCreating
+  onStartCreating,
+  onSetFavorite
 }) {
   return (
     <div className="contacts">
@@ -15,8 +16,10 @@ export default function Contacts({
             contactId={contact.id}
             contactName={contact.name}
             contactNumber={contact.number}
+            isFavorite = {contact.isFavorite}
             onStartDeletion={onStartDeletion}
             onStartEditing={onStartEditing}
+            onSetFavorite = {onSetFavorite}
           />
         ))}
         {contacts.length === 0 && (

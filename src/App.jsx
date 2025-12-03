@@ -13,7 +13,6 @@ const DEFAULT_CONTACT_STATE = {
   isCreating: false,
   isDeleting: false,
   contacts: [],
-  favorites: [],
   filter: "a-z",
   searchedContacts: [],
   hasResult: true
@@ -35,6 +34,7 @@ function App() {
     handleEditContact,
     handleStartEditing,
     handleStopEditing,
+    handleSetFavorite
   } = useContactHook(DEFAULT_CONTACT_STATE);
 
 
@@ -76,6 +76,7 @@ function App() {
           onStartDeletion={handleStartDeleting}
           onStartEditing={handleStartEditing}
           onStartCreating={handleStartCreating}
+          onSetFavorite = {handleSetFavorite}
         />
       ):<div className="container">
             <h2>No contact founded. </h2>
@@ -89,6 +90,7 @@ function App() {
           onStartDeletion={handleStartDeleting}
           onStartEditing={handleStartEditing}
           onStartCreating={handleStartCreating}
+          onSetFavorite = {handleSetFavorite}
         />
       )}
     </>

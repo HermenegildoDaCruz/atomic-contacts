@@ -6,6 +6,7 @@ export function contactReducer(contactState,action){
             id: Math.random(),
             name: action.contact.name,
             number: action.contact.number,
+            isFavorite: false,
         }
         return {
             ...contactState,
@@ -109,6 +110,13 @@ export function contactReducer(contactState,action){
         return {
             ...contactState,
             filter: action.filter
+        }
+    }
+
+    if (action.type === "TOGGLE_ISFAVORITE"){
+        return {
+            ...contactState,
+            contacts: [...contactState.contacts.map(contact => contact.id === action.id ? {...contact, isFavorite: !contact.isFavorite}:contact) ],
         }
     }
     return contactState
