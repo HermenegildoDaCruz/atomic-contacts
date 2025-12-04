@@ -1,4 +1,5 @@
-import useIsActive from "../hooks/useIsActive"; 
+import useIsActive from "../hooks/useIsActive";
+import { motion } from "motion/react";
 
 export default function Contact({
   contactId,
@@ -7,13 +8,23 @@ export default function Contact({
   isFavorite,
   onStartDeletion,
   onStartEditing,
-  onSetFavorite
+  onSetFavorite,
 }) {
-
-  const {active,handleToggleIsActive} = useIsActive(false,true)
+  const { active, handleToggleIsActive } = useIsActive(false, true);
 
   return (
-    <div className="contact">
+    <motion.div
+      initial={{
+        transform: "scale(0)",
+        opacity: 0,
+      }}
+      whileInView={{
+        transform: "scale(1)",
+        opacity: 1,
+      }}
+      transition={{ duration: 0.8 }}
+      className="contact"
+    >
       <div className="contact-cover">{contactName[0]}</div>
       <div className="contact-info">
         <div className="contact-header">
@@ -22,7 +33,7 @@ export default function Contact({
             <span className="contact-number">{contactNumber}</span>
           </div>
           <button className="btn" onClick={() => onStartDeletion(contactId)}>
-            <ion-icon name="trash-bin-outline" className = "icon"></ion-icon>
+            <ion-icon name="trash-bin-outline" className="icon"></ion-icon>
           </button>
         </div>
         <div className="contact-btns">
@@ -33,13 +44,21 @@ export default function Contact({
             Edit
           </button>
           <button className="btn" onClick={handleToggleIsActive}>
-            {active ? <ion-icon name="checkmark-outline" className = "icon"></ion-icon>:<ion-icon name="copy-outline" className="icon"></ion-icon>}
+            {active ? (
+              <ion-icon name="checkmark-outline" className="icon"></ion-icon>
+            ) : (
+              <ion-icon name="copy-outline" className="icon"></ion-icon>
+            )}
           </button>
           <button className="btn" onClick={() => onSetFavorite(contactId)}>
-            {isFavorite ? <ion-icon name="star" className="icon"></ion-icon>:<ion-icon name="star-outline" className="icon"></ion-icon>}
+            {isFavorite ? (
+              <ion-icon name="star" className="icon"></ion-icon>
+            ) : (
+              <ion-icon name="star-outline" className="icon"></ion-icon>
+            )}
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

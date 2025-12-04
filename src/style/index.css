@@ -64,7 +64,7 @@ option {
 }
 .contacts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, 20rem);
   margin: auto;
   row-gap: 1.4rem;
   column-gap: 2.4rem;
@@ -124,6 +124,7 @@ option {
 .contact-header span {
   display: block;
 }
+
 .contact-header .icon {
   margin-top: 0.4rem;
 }
@@ -142,11 +143,19 @@ option {
 .modal {
   top: 50%;
   transform: translateY(-80%);
-  background-color: #00000018;
+  background-color: #000000b2;
   color: #f1f3f5;
   border: 0.2px solid #b3b3b32d;
   border-radius: 12px;
   z-index: 2;
+}
+.modal.error{
+  top:15%;
+}
+.error{
+  border: 1.4px solid #912e2e81;
+  z-index: 3;
+  padding: .6rem 8rem;
 }
 .btn--primary {
   background-color: #f1f3f5;
@@ -182,19 +191,31 @@ option {
 
 /* QUERIES */
 @media (max-width: 32rem) {
-  html{
+  html {
     font-size: 50%;
   }
   .header-search-box {
     flex-direction: column-reverse;
     align-items: start;
   }
-  .btn--primary{
+  .header-search-box .btn--primary {
     margin-bottom: 1.4rem;
+  }
+  .contact {
+    position: relative;
+  }
+  .contact-header .btn {
+    position: absolute;
+    right: 0.4rem;
+    top: 0.4rem;
+  }
+  .contacts {
+    grid-template-columns: repeat(auto-fit, 26rem);
+    justify-items: center;
   }
 }
 @media (max-width: 28rem) {
   .search-input {
     width: 80vw;
-}
+  }
 }

@@ -5,7 +5,7 @@ export default function Contacts({
   onStartDeletion,
   onStartEditing,
   onStartCreating,
-  onSetFavorite
+  onSetFavorite,
 }) {
   return (
     <div className="contacts">
@@ -16,19 +16,19 @@ export default function Contacts({
             contactId={contact.id}
             contactName={contact.name}
             contactNumber={contact.number}
-            isFavorite = {contact.isFavorite}
+            isFavorite={contact.isFavorite}
             onStartDeletion={onStartDeletion}
             onStartEditing={onStartEditing}
-            onSetFavorite = {onSetFavorite}
+            onSetFavorite={onSetFavorite}
           />
         ))}
-        {contacts.length === 0 && (
-          <div>
-            <h2>No contacts.. </h2>
-            <button className="btn--primary" onClick={onStartCreating}>
-              create
-            </button>
-          </div>
+      {contacts.length === 0 && (
+        <div>
+          <h2>No contacts.. </h2>
+          <button className="btn--primary" onClick={onStartCreating}>
+            create
+          </button>
+        </div>
       )}
     </div>
   );

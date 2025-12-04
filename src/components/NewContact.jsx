@@ -1,15 +1,19 @@
 import { useRef } from "react";
 import { hasEmptyFields } from "../utils/contactFormValidators";
+import ContactForm from "./ContactForm";
 
-export default function NewContact({ open, onAddContact, onStopCreating }) {
+export default function NewContact({
+  open,
+  showError,
+  onAddContact,
+  onStopCreating,
+}) {
   const name = useRef();
   const number = useRef();
 
   function handleSetContact() {
-    if (
-      hasEmptyFields(name, number)
-    ) {
-      alert("Fill all fields");
+    if (hasEmptyFields(name, number)) {
+      showError();
     } else {
       onAddContact(name.current.value, number.current.value);
       name.current.value = "";
@@ -20,15 +24,7 @@ export default function NewContact({ open, onAddContact, onStopCreating }) {
   return (
     <dialog open={open} className="modal">
       <h2>Add new contact</h2>
-      <div className="contact-form">
-        <input ref={name} type="text" placeholder="First Name" maxLength={20} />
-        <input
-          ref={number}
-          type="number"
-          placeholder="Phone Number"
-          maxLength={9}
-        />
-      </div>
+      <ContactForm inputNameRef={name} inputNumberRef={number} />
       <div className="contact-btns">
         <button className="btn--primary" onClick={handleSetContact}>
           Add

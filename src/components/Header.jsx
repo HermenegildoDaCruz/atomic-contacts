@@ -1,4 +1,10 @@
-export default function Header({filter, onStartCreating, onSetFilter,onSearch, onShowFavorites }) {
+export default function Header({
+  filter,
+  onStartCreating,
+  onSetFilter,
+  onSearch,
+  onShowFavorites,
+}) {
   return (
     <header className="header">
       <div className="header-search-box">
@@ -15,12 +21,20 @@ export default function Header({filter, onStartCreating, onSetFilter,onSearch, o
         </button>
       </div>
       <div className="header-filters-box">
-        <select name="filter" className="filter-contacts" onClick={(e) => onSetFilter(e.target.value)}>
+        <select
+          name="filter"
+          className="filter-contacts"
+          onClick={(e) => onSetFilter(e.target.value)}
+        >
           <option value="a-z">Orber by name A-Z</option>
           <option value="z-a">Orber by name Z-A</option>
         </select>
         <button className="btn" onClick={onShowFavorites}>
-          {filter === "fav" ? <ion-icon name="star" className = "icon"></ion-icon>:<ion-icon name="star-outline" className="icon"></ion-icon>}
+          {filter === "fav" ? (
+            <ion-icon name="star" className="icon"></ion-icon>
+          ) : (
+            <ion-icon name="star-outline" className="icon"></ion-icon>
+          )}
         </button>
       </div>
     </header>

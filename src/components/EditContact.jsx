@@ -1,45 +1,36 @@
 import { useRef } from "react";
 import { hasEmptyFields } from "../utils/contactFormValidators";
+import ContactForm from "./ContactForm";
+
 export default function EditContact({
   open,
   contact,
   onUpdateContact,
   onStopEditing,
+  showError
 }) {
   const name = useRef();
   const number = useRef();
 
   function handleUpdateContact() {
-    if (
-      hasEmptyFields(name, number)
-    ) {
-      alert("Fill all fields");
+    if (hasEmptyFields(name, number)) {
+      showError()
     } else {
       onUpdateContact(name.current.value, number.current.value);
     }
   }
+
   return (
     <dialog open={open} className="modal">
       <div className="selected-contact-info">
         <div className="contact-cover">{contact.name[0]}</div>
         <span>{contact.name}.</span>
       </div>
-      <div className="contact-form">
-        <input
-          ref={name}
-          type="text"
-          placeholder="First Name"
-          maxLength={20}
-          defaultValue={contact.name}
-        />
-        <input
-          ref={number}
-          type="number"
-          placeholder="Phone Number"
-          maxLength={9}
-          defaultValue={contact.number}
-        />
-      </div>
+      <ContactForm
+        contactData={contact}
+        inputNameRef={name}
+        inputNumberRef={number}
+      />
       <div className="contact-btns">
         <button className="btn--primary" onClick={handleUpdateContact}>
           Update
