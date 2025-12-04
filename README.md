@@ -4,8 +4,9 @@ A fast, clean, and efficient contact management app built with modern web techno
 
 ### 🚀 Technologies
 
-React – JavaScript library for building component-based user interfaces.
+React JS – JavaScript library for building component-based user interfaces.
 Framer Motion – Animation library for React that provides fluid and modern transitions.
+Million JS - ...
 
 ### 🧩 Features
 - ✅ Add new contacts
