@@ -12,7 +12,11 @@ export default memo(function Contact({
   onSetFavorite,
 }) {
   const { active, handleToggleIsActive } = useIsActive(false, true);
-
+  
+  function copyNumber(){
+    navigator.clipboard.writeText(contactNumber)
+    handleToggleIsActive()
+  }
   return (
     <motion.div
       initial={{
@@ -44,7 +48,7 @@ export default memo(function Contact({
           >
             Edit
           </button>
-          <button className="btn" onClick={handleToggleIsActive}>
+          <button className="btn" onClick={copyNumber}>
             {active ? (
               <ion-icon name="checkmark-outline" className="icon"></ion-icon>
             ) : (
