@@ -101,13 +101,14 @@ export function contactReducer(contactState, action) {
       const searchResults = contactState.contacts.filter((contact) =>
         contact.name.includes(action.searchValue)
       );
-
-      if (searchResults.length === 0) {
-        return {
+      
+      let clearResults = {
           ...contactState,
           searchedContacts: [],
           hasResult: false,
         };
+      if (searchResults.length === 0) {
+        return clearResults
       }
       return {
         ...contactState,

@@ -1,16 +1,16 @@
-import million from "million/compiler";
+// import million from "million/compiler";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    million.vite({
-      auto: {
-        threshold: 0.05,
-        skip: ["useBadHook", /badVariable/g],
-      },
-    }),
+    // million.vite({
+    //   auto: {
+    //     threshold: 0.05,
+    //     skip: ["useBadHook", /badVariable/g],
+    //   },
+    // }),
     react(),
   ],
 });
