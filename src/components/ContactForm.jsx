@@ -5,14 +5,14 @@ export default function ContactForm({
   inputNameRef,
   inputNumberRef,
 }) {
-  const [formatedNumber, setFormatedNumber] = useState("");
+  const [formattedNumber, setFormatedNumber] = useState("");
 
   function handleFormatContactNumber(el) {
     el.value = formatContactNumber(el.value);
     setFormatedNumber(formatContactNumber(el.value));
   }
 
-  console.log(formatedNumber);
+  console.log(formattedNumber);
   return (
     <div className="contact-form">
       <input
@@ -27,7 +27,7 @@ export default function ContactForm({
         type="text"
         placeholder="Phone Number"
         maxLength={20}
-        defaultValue={contactData ? contactData.number : formatedNumber}
+        defaultValue={contactData ? contactData.number : formattedNumber}
         onChange={(e) => handleFormatContactNumber(e.target)}
       />
     </div>

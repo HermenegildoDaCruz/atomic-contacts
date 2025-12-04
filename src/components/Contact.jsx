@@ -1,7 +1,8 @@
 import useIsActive from "../hooks/useIsActive";
 import { motion } from "motion/react";
+import { memo } from "react";
 
-export default function Contact({
+export default memo(function Contact({
   contactId,
   contactName,
   contactNumber,
@@ -61,4 +62,4 @@ export default function Contact({
       </div>
     </motion.div>
   );
-}
+});

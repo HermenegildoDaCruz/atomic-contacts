@@ -1,4 +1,6 @@
-export default function Header({
+import { memo } from "react";
+
+export default memo(function Header({
   filter,
   onStartCreating,
   onSetFilter,
@@ -39,4 +41,4 @@ export default function Header({
       </div>
     </header>
   );
-}
+});
