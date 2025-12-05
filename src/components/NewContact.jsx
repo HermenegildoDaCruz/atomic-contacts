@@ -2,20 +2,12 @@ import { useRef } from "react";
 import { hasEmptyFields } from "../utils/contactFormValidators";
 import ContactForm from "./ContactForm";
 
-export default function NewContact({
-  open,
-  onAddContact,
-  onStopCreating,
-}) {
+export default function NewContact({ open, onAddContact, onStopCreating }) {
   const name = useRef();
   const number = useRef();
 
   function handleSetContact() {
-    if (!hasEmptyFields(name, number)) {
-      onAddContact(name.current.value, number.current.value);
-      name.current.value = "";
-      number.current.value = "";
-    }
+    onAddContact(name.current.value, number.current.value);
   }
 
   return (

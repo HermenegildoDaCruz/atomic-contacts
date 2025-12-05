@@ -12,7 +12,6 @@ export default function ContactForm({
     setFormatedNumber(formatContactNumber(el.value));
   }
 
-  console.log(formattedNumber);
   return (
     <div className="contact-form">
       <input

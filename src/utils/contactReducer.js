@@ -1,7 +1,7 @@
 import { formatContactNumber } from "./formatContactNumber";
 // (contactState) Reducer function:
 export function contactReducer(contactState, action) {
-  const contacts = contactState.contacts
+  const contacts = contactState.contacts;
   if (action.type === "ADD_CONTACT") {
     const contactData = {
       id: Math.random(),
@@ -10,22 +10,32 @@ export function contactReducer(contactState, action) {
       isFavorite: false,
     };
 
-    const contactAlreadyExists = contacts.filter(contact => contact.number === contactData.number).length > 0 ? true:false
-    
-    if (contactAlreadyExists){
-      return{
+    const contactAlreadyExists =
+      contacts.filter((contact) => contact.number === contactData.number)
+        .length > 0
+        ? true
+        : false;
+
+    if (contactAlreadyExists) {
+      return {
         ...contactState,
-        error: {...contactState.error, hasError: true, errorMessage: "This number already exists."},
-        isCreating: false
-      }
+        error: {
+          ...contactState.error,
+          hasError: true,
+          errorMessage: "This number already exists.",
+        },
+      };
     }
 
-    if (contactData.name.length < 1 || contactData.number.length < 1){
-      return{
+    if (contactData.name.length === 0 || contactData.number.length === 0) {
+      return {
         ...contactState,
-        error: {...contactState.error, hasError: true, errorMessage: "Fill all fields."},
-        isCreating: false
-      }
+        error: {
+          ...contactState.error,
+          hasError: true,
+          errorMessage: "Fill all fields.",
+        },
+      };
     }
 
     return {
@@ -34,7 +44,7 @@ export function contactReducer(contactState, action) {
       isCreating: false,
     };
   }
-  
+
   if (action.type === "START_CREATING") {
     return {
       ...contactState,
@@ -50,22 +60,36 @@ export function contactReducer(contactState, action) {
   }
 
   if (action.type === "UPDATE_CONTACT") {
-    // const c = contacts.filter(contact => contact.number === action.contact.number)
-    // cons
-    //  if (contactAlreadyExists){
-    //   return{
-    //     ...contactState,
-    //     error: {...contactState.error, hasError: true, errorMessage: "This number already exists."},
-    //     isEditing: false
-    //   }
-    // }
+    const otherContacts = contacts.filter(
+      (contact) => contact.id !== contactState.selectedContactId
+    );
+    const contactAlreadyExists =
+      otherContacts.filter(
+        (contact) => contact.number === action.contact.number
+      ).length > 0
+        ? true
+        : false;
 
-    if (action.contact.name.length < 1 || action.contact.number.length < 1){
-      return{
+    if (contactAlreadyExists) {
+      return {
         ...contactState,
-        error: {...contactState.error, hasError: true, errorMessage: "Fill all fields."},
-        isEditing: false
-      }
+        error: {
+          ...contactState.error,
+          hasError: true,
+          errorMessage: "This number already exists.",
+        },
+      };
+    }
+
+    if (action.contact.name.length < 1 || action.contact.number.length < 1) {
+      return {
+        ...contactState,
+        error: {
+          ...contactState.error,
+          hasError: true,
+          errorMessage: "Fill all fields.",
+        },
+      };
     }
     return {
       ...contactState,
@@ -138,14 +162,14 @@ export function contactReducer(contactState, action) {
       const searchResults = contacts.filter((contact) =>
         contact.name.includes(action.searchValue)
       );
-      
+
       let clearResults = {
-          ...contactState,
-          searchedContacts: [],
-          hasResult: false,
-        };
+        ...contactState,
+        searchedContacts: [],
+        hasResult: false,
+      };
       if (searchResults.length === 0) {
-        return clearResults
+        return clearResults;
       }
       return {
         ...contactState,
@@ -193,7 +217,12 @@ export function contactReducer(contactState, action) {
       };
     }
   }
-  return contactState
-}
-  
+  if (action.type === "HIDE_ERROR") {
+    return {
+      ...contactState,
+      error: { ...contactState.error, hasError: false, errorMessage: "" },
+    };
+  }
 
+  return contactState;
+}

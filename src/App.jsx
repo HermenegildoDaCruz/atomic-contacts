@@ -7,7 +7,6 @@ import ConfirmDeletion from "./components/ConfirmDeletion";
 import ErrorMessage from "./components/ErrorMessage";
 import useContactHook from "./hooks/useContactHook";
 
-localStorage.clear()
 let DEFAULT_CONTACT_STATE =
   JSON.parse(localStorage.getItem("contact-app-data")) || null;
 
@@ -23,9 +22,9 @@ if (DEFAULT_CONTACT_STATE === null) {
     hasResult: true,
     showFavorites: false,
     error: {
-     hasError: false,
-     errorMessage: ""
-    }
+      hasError: false,
+      errorMessage: "",
+    },
   };
 }
 
@@ -53,7 +52,7 @@ function App() {
     <>
       {contactState.error.hasError && (
         <ErrorMessage
-          open={contactState.hasError}
+          open={contactState.error.hasError}
           message={contactState.error.errorMessage}
         />
       )}
@@ -65,6 +64,7 @@ function App() {
       />
       {contactState.isCreating && (
         <NewContact
+          key={contactState.error.hasError} //RESET when app throw a error
           open={contactState.isCreating}
           onAddContact={handleAddContact}
           onStopCreating={handleStopCreating}
@@ -73,6 +73,7 @@ function App() {
 
       {selectedContact && (
         <EditContact
+          key={contactState.error.hasError} //RESET when app throw a error
           open={contactState.isEditing}
           contact={selectedContact}
           onUpdateContact={handleEditContact}

@@ -112,6 +112,11 @@ export default function useContactHook(initialState) {
       type: "SHOW_AND_HIDE_FAVORITES",
     });
   }
+  function handleHideError() {
+    dispatch({
+      type: "HIDE_ERROR",
+    });
+  }
 
   // Storing App data in localStorage
   useEffect(() => {
@@ -119,17 +124,17 @@ export default function useContactHook(initialState) {
   }, [contactState]);
 
   // Showing and hiding errors (Empty fields)
-  useEffect(()=>{
-    let timer
-    if (contactState.hasError){
+  useEffect(() => {
+    let timer;
+    if (contactState.error.hasError) {
       timer = setTimeout(() => {
-        handleShowError()
+        handleHideError();
       }, 3000);
     }
     return () => {
-      clearTimeout(timer)
-    }
-  },[contactState.hasError])
+      clearTimeout(timer);
+    };
+  }, [contactState.error]);
 
   return {
     contactState,
