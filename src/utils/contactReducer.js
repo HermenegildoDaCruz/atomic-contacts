@@ -1,20 +1,40 @@
 import { formatContactNumber } from "./formatContactNumber";
 // (contactState) Reducer function:
 export function contactReducer(contactState, action) {
+  const contacts = contactState.contacts
   if (action.type === "ADD_CONTACT") {
-    const contact = {
+    const contactData = {
       id: Math.random(),
       name: action.contact.name,
       number: formatContactNumber(action.contact.number),
       isFavorite: false,
     };
+
+    const contactAlreadyExists = contacts.filter(contact => contact.number === contactData.number).length > 0 ? true:false
+    
+    if (contactAlreadyExists){
+      return{
+        ...contactState,
+        error: {...contactState.error, hasError: true, errorMessage: "This number already exists."},
+        isCreating: false
+      }
+    }
+
+    if (contactData.name.length < 1 || contactData.number.length < 1){
+      return{
+        ...contactState,
+        error: {...contactState.error, hasError: true, errorMessage: "Fill all fields."},
+        isCreating: false
+      }
+    }
+
     return {
       ...contactState,
-      contacts: [...contactState.contacts, contact],
+      contacts: [...contacts, contactData],
       isCreating: false,
     };
   }
-
+  
   if (action.type === "START_CREATING") {
     return {
       ...contactState,
@@ -30,11 +50,28 @@ export function contactReducer(contactState, action) {
   }
 
   if (action.type === "UPDATE_CONTACT") {
+    // const c = contacts.filter(contact => contact.number === action.contact.number)
+    // cons
+    //  if (contactAlreadyExists){
+    //   return{
+    //     ...contactState,
+    //     error: {...contactState.error, hasError: true, errorMessage: "This number already exists."},
+    //     isEditing: false
+    //   }
+    // }
+
+    if (action.contact.name.length < 1 || action.contact.number.length < 1){
+      return{
+        ...contactState,
+        error: {...contactState.error, hasError: true, errorMessage: "Fill all fields."},
+        isEditing: false
+      }
+    }
     return {
       ...contactState,
       isEditing: false,
       contacts: [
-        ...contactState.contacts.map((contact) =>
+        ...contacts.map((contact) =>
           contact.id === contactState.selectedContactId
             ? {
                 ...contact,
@@ -66,7 +103,7 @@ export function contactReducer(contactState, action) {
   // **
   if (action.type === "DELETE_CONTACT") {
     if (contactState.selectedContactId !== null) {
-      const filteredContacts = contactState.contacts.filter(
+      const filteredContacts = contacts.filter(
         (contact) => contact.id !== contactState.selectedContactId
       );
       const filteredSearchedContacts = contactState.searchedContacts.filter(
@@ -98,7 +135,7 @@ export function contactReducer(contactState, action) {
   }
   if (action.type === "SEARCH_CONTACT") {
     if (action.searchValue.length > 0) {
-      const searchResults = contactState.contacts.filter((contact) =>
+      const searchResults = contacts.filter((contact) =>
         contact.name.includes(action.searchValue)
       );
       
@@ -134,7 +171,7 @@ export function contactReducer(contactState, action) {
     return {
       ...contactState,
       contacts: [
-        ...contactState.contacts.map((contact) =>
+        ...contacts.map((contact) =>
           contact.id === action.id
             ? { ...contact, isFavorite: !contact.isFavorite }
             : contact
@@ -156,15 +193,7 @@ export function contactReducer(contactState, action) {
       };
     }
   }
-
-  if (action.type === "ERROR"){
-    return {
-      ...contactState,
-      hasError: !contactState.hasError,
-      isCreating:false,
-      isEditing: false
-    }
-  }
-
-  return contactState;
+  return contactState
 }
+  
+

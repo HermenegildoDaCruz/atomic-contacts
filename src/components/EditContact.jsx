@@ -13,11 +13,9 @@ export default function EditContact({
   const number = useRef();
 
   function handleUpdateContact() {
-    if (hasEmptyFields(name, number)) {
-      showError()
-    } else {
+    if (!hasEmptyFields(name, number)) {
       onUpdateContact(name.current.value, number.current.value);
-    }
+    } 
   }
 
   return (

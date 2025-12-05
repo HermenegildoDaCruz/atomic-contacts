@@ -113,12 +113,6 @@ export default function useContactHook(initialState) {
     });
   }
 
-  function handleShowError(){
-    dispatch({
-      type: "ERROR"
-    })
-  }
-
   // Storing App data in localStorage
   useEffect(() => {
     localStorage.setItem("contact-app-data", JSON.stringify(contactState));
@@ -154,6 +148,5 @@ export default function useContactHook(initialState) {
     handleStartEditing,
     handleStopEditing,
     handleSetFavorite,
-    handleShowError
   };
 }

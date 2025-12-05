@@ -7,6 +7,7 @@ import ConfirmDeletion from "./components/ConfirmDeletion";
 import ErrorMessage from "./components/ErrorMessage";
 import useContactHook from "./hooks/useContactHook";
 
+localStorage.clear()
 let DEFAULT_CONTACT_STATE =
   JSON.parse(localStorage.getItem("contact-app-data")) || null;
 
@@ -21,7 +22,10 @@ if (DEFAULT_CONTACT_STATE === null) {
     searchedContacts: [],
     hasResult: true,
     showFavorites: false,
-    hasError: false,
+    error: {
+     hasError: false,
+     errorMessage: ""
+    }
   };
 }
 
@@ -43,15 +47,14 @@ function App() {
     handleStartEditing,
     handleStopEditing,
     handleSetFavorite,
-    handleShowError,
   } = useContactHook(DEFAULT_CONTACT_STATE);
 
   return (
     <>
-      {contactState.hasError && (
+      {contactState.error.hasError && (
         <ErrorMessage
           open={contactState.hasError}
-          message="fill all fields..try again"
+          message={contactState.error.errorMessage}
         />
       )}
       <Backdrop
@@ -65,7 +68,6 @@ function App() {
           open={contactState.isCreating}
           onAddContact={handleAddContact}
           onStopCreating={handleStopCreating}
-          showError={handleShowError}
         />
       )}
 
@@ -75,7 +77,6 @@ function App() {
           contact={selectedContact}
           onUpdateContact={handleEditContact}
           onStopEditing={handleStopEditing}
-          showError={handleShowError}
         />
       )}
       {contactState.isDeleting && (

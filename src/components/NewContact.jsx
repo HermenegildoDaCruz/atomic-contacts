@@ -4,7 +4,6 @@ import ContactForm from "./ContactForm";
 
 export default function NewContact({
   open,
-  showError,
   onAddContact,
   onStopCreating,
 }) {
@@ -12,9 +11,7 @@ export default function NewContact({
   const number = useRef();
 
   function handleSetContact() {
-    if (hasEmptyFields(name, number)) {
-      showError();
-    } else {
+    if (!hasEmptyFields(name, number)) {
       onAddContact(name.current.value, number.current.value);
       name.current.value = "";
       number.current.value = "";
